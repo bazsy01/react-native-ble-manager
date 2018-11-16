@@ -360,11 +360,11 @@ class BleManager extends ReactContextBaseJavaModule implements ActivityEventList
             };
 
     private boolean saveOrUpdatePeripheral(BluetoothDevice device) {
-        return saveOrUpdatePeripheral(device, 0, new byte[0])
+        return saveOrUpdatePeripheral(device, 0, new byte[0]);
     }
 
     /**
-     * @return true if saved new Peripheral, false otherwise
+     * @return true if saved a new Peripheral, false otherwise
      */
     private boolean saveOrUpdatePeripheral(BluetoothDevice device, int rssi, byte[] scanRecord) {
         String address = device.getAddress();
@@ -373,7 +373,7 @@ class BleManager extends ReactContextBaseJavaModule implements ActivityEventList
                 Peripheral peripheral = new Peripheral(device, rssi, scanRecord, reactContext);
                 peripherals.put(device.getAddress(), peripheral);
                 return true;
-            } else {
+            } else if (rssi != 0) {
                 // this isn't necessary
                 Peripheral peripheral = peripherals.get(address);
                 peripheral.updateRssi(rssi);
@@ -493,7 +493,7 @@ class BleManager extends ReactContextBaseJavaModule implements ActivityEventList
         List<BluetoothDevice> periperals = getBluetoothManager().getConnectedDevices(GATT);
         for (BluetoothDevice entry : periperals) {
             saveOrUpdatePeripheral(entry);
-            Peripheral peripheral = periperals.get(entry.getAddress())
+            Peripheral peripheral = periperals.get(entry.getAddress());
             WritableMap jsonBundle = peripheral.asWritableMap();
             map.pushMap(jsonBundle);
         }
