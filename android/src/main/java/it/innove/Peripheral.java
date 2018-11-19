@@ -74,7 +74,7 @@ public class Peripheral extends BluetoothGattCallback {
 		this.device = device;
 		this.advertisingRSSI = advertisingRSSI;
 		this.advertisingData = scanRecord;
-		this.advertisingDataBytes = scanRecord.getBytes();;
+		this.advertisingDataBytes = scanRecord.getBytes();
 		this.reactContext = reactContext;
 	}
 
