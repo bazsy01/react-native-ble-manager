@@ -12,11 +12,11 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.Log;
-
 import com.facebook.react.bridge.*;
 import com.facebook.react.modules.core.RCTNativeAppEventEmitter;
 
 import java.lang.reflect.Method;
+import java.util.*;
 
 import static android.app.Activity.RESULT_OK;
 import static android.bluetooth.BluetoothProfile.GATT;
