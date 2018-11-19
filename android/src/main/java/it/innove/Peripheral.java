@@ -27,11 +27,14 @@ import com.facebook.react.modules.core.RCTNativeAppEventEmitter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONArray;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static com.facebook.react.common.ReactConstants.TAG;
@@ -256,16 +259,20 @@ public class Peripheral extends BluetoothGattCallback {
 
 	static JSONObject byteArrayToJSON(byte[] bytes) throws JSONException {
 		JSONObject object = new JSONObject();
-		object.put("CDVType", "ArrayBuffer");
-		object.put("data", bytes != null ? Base64.encodeToString(bytes, Base64.NO_WRAP) : null);
+		if (bytes != null) {
+			object.put("CDVType", "ArrayBuffer");
+			object.put("data", bytes != null ? Base64.encodeToString(bytes, Base64.NO_WRAP) : null);
+		}
 		return object;
 	}
 
 	static WritableMap byteArrayToWritableMap(byte[] bytes) throws JSONException {
 		WritableMap object = Arguments.createMap();
-		object.putString("CDVType", "ArrayBuffer");
-		object.putString("data", Base64.encodeToString(bytes, Base64.NO_WRAP));
-		object.putArray("bytes", BleManager.bytesToWritableArray(bytes));
+		if (bytes != null) {
+			object.putString("CDVType", "ArrayBuffer");
+			object.putString("data", Base64.encodeToString(bytes, Base64.NO_WRAP));
+			object.putArray("bytes", BleManager.bytesToWritableArray(bytes));
+		}
 		return object;
 	}
 
